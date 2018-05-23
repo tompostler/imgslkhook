@@ -10,6 +10,12 @@
       ],
       "authLevel": "function",
       "name": "req"
+    },
+    {
+      "type": "queueTrigger",
+      "queueName": "request",
+      "connection": "StorageAccountConnection",
+      "name": "collector"
     }
   ],
   "disabled": false,
