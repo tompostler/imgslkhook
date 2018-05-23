@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net461</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="1.0.13" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="host.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="local.settings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+    </None>
+  </ItemGroup>
+
+  <PropertyGroup>
+    <!-- Have to do it twice because of trailing slashes -->
+    <wwwrootDest>$([System.IO.Directory]::GetParent($(MSBuildProjectDirectory)))</wwwrootDest>
+    <wwwrootDest>$([System.IO.Directory]::GetParent($(wwwrootDest)))\wwwroot\</wwwrootDest>
+  </PropertyGroup>
+  <Target Name="CopyFunctionTowwwroot" AfterTargets="AfterBuild">
+    <MakeDir Directories="$(wwwrootDest)" />
+    <!-- Have to add trailing slashes because it thinks we're escaping the quote -->
+    <Exec Command="ROBOCOPY &quot;$(TargetDir)\&quot; &quot;$(wwwrootDest)\&quot; /MIR" ContinueOnError="true">
+      <Output TaskParameter="ExitCode" PropertyName="rcErrorCode" />
+    </Exec>
+    <Error Condition="$(rcErrorCode) &gt; 8" Message="Robocopy failed" />
+  </Target>
+
+</Project>

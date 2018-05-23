@@ -1,0 +1,18 @@
+{
+  "generatedBy": "Microsoft.NET.Sdk.Functions-1.0.13",
+  "configurationSource": "attributes",
+  "bindings": [
+    {
+      "type": "httpTrigger",
+      "route": "slack/po",
+      "methods": [
+        "post"
+      ],
+      "authLevel": "function",
+      "name": "req"
+    }
+  ],
+  "disabled": false,
+  "scriptFile": "../bin/imgslkhook.dll",
+  "entryPoint": "imgslkhook.Functions.ReceiveWebhook"
+}

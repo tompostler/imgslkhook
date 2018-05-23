@@ -328,3 +328,9 @@ ASALocalRun/
 
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
+
+
+
+# Always take the wwwroot
+!/wwwroot/*
+/wwwroot/*.pdb
