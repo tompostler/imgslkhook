@@ -14,5 +14,5 @@
   ],
   "disabled": false,
   "scriptFile": "../bin/imgslkhook.dll",
-  "entryPoint": "imgslkhook.Functions.ReceiveWebhook"
+  "entryPoint": "imgslkhook.Functions.ReceiveWebhookAsync"
 }

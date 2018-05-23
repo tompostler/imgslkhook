@@ -3,17 +3,19 @@ using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Extensions.Logging;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace imgslkhook
 {
     public static class Functions
     {
-        [FunctionName(nameof(ReceiveWebhook))]
-        public static HttpResponseMessage ReceiveWebhook(
+        [FunctionName(nameof(ReceiveWebhookAsync))]
+        public static async Task<HttpResponseMessage> ReceiveWebhookAsync(
             [HttpTrigger(AuthorizationLevel.Function, "post", Route = "slack/po")]HttpRequestMessage req,
             ILogger logger)
         {
-            return req.CreateResponse(HttpStatusCode.OK);
+            logger.LogInformation("BODY: {0}", await req.Content.ReadAsStringAsync());
+            return req.CreateResponse(HttpStatusCode.OK, @"{""text"":""got your message. development in progress""}");
         }
     }
 }
